@@ -1,0 +1,16 @@
+
+</head>
+
+    <h2>Guardar Palabra</h2>
+    {{palabra_existe}}
+    <!-- Formulario para ingresar la palabra -->
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- Botón para enviar el formulario -->
+        <button type="submit">Guardar</button>
+    </form>
+    {%block content%}
+    {%endblock %}
+
+</html>

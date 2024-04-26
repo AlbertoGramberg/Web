@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Videos de Biología Celular</title>
+</head>
+{%extends 'base.html'%}
+{%block content%}
+<body>
+        
+    <p >
+        {% for palabra in palabras %}
+        <a href="/videos/{{ palabra }}" >✘{{ palabra }}</a>
+        {% endfor %}
+    </p> {{url_video}}
+    {% include 'formulario.html' %}
+    <h1>Videos de Biología Celular</h1>
+    <h3></h3>
+    {% for video in videos %}
+    <div>
+        <h2>{{ video.titulo }}</h2>
+        
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ video.id }}" frameborder="0" allowfullscreen></iframe>
+    </div>
+    {% endfor %}
+</body>
+{%endblock %}
+</html>
