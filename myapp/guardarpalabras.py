@@ -1,5 +1,4 @@
 from django.shortcuts import render
-from .forms import PalabraForm
 from django.shortcuts import redirect
 
 class GuardarPalabras:

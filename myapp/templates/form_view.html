@@ -1,0 +1,39 @@
+
+<!-- form_view.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crear Post</title>
+    {{ form.media }}
+</head>
+<body>
+    <h1>QuillField Form</h1>
+    <form action="" method="post">
+        {% csrf_token %}
+        
+        {{ form.usuario }}
+        </br>
+        
+        
+        <div><a>Colocar Titulo Maximo 100 caracteres</a>
+            <div>{{ form.titulo }}</div>
+        </div>
+        </br>
+        <div><a>Colocar Reseña Maximo 400 caracteres</a>
+            <div>{{ form.reseña }}</div>
+        </div>
+        </br>
+        
+        <a>Colocar Contenido</a>
+        {{ form.contenido }}
+        </br>
+        <a>Bibliografia</a>
+        {{ form.bibliografia }}
+        </br>
+        <a>Colocar Fecha y Hora</a>
+        {{ form.fecha }}
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

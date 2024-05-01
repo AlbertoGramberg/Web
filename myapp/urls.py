@@ -15,7 +15,12 @@ urlpatterns = [
     path('video/', views.lista_videos),
     path('palabras/', views.generate_wordcloud, name='wordcloud'),
     path('videos/<str:palabra_busqueda>/', views.lista_videos, name='lista_videos'),
-    path('web/', views.personal, name='personal')
+    path('web/', views.personal, name='personal'),
+    path('blog/', views.post_view, name=''),
+    path('blog/<int:id>', views.blogs, name=''),
+    path('articulo/<int:id>', views.article_detail, name='render_items'),
+    path('formulario/', views.crear_post, name='crear_post'),
+
 
 
     

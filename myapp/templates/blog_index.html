@@ -1,0 +1,50 @@
+{%extends 'blog.html'%}
+{%block content%}
+{% for p in post %}
+<div class="col-md-12 my-5  border border-#dedede
+" >
+<div class="col-md-12" >
+<div class="col-md-12 " id="data">
+  <div class="d-flex flex-row-reverse ">
+    <div class="p-2 progress-bar progress-bar-striped bg-danger" role="progressbar" style="width: 20%">{{p.fecha}}</div>
+  </div>
+</div>
+<div class="d-flex flex-row ">
+  <div class="p-2"><img width="40" height="40" src="https://img.icons8.com/color/48/user.png" alt="user"/>Albert</div>
+  <div class="p-2">0 Comentarios</div>
+</div>
+</div>
+<div class="col-md-12 " id="titulo" ><h4  class="text-wrap text-break" ><a href="{{p.id}}">{{p.titulo}}</a></h4>
+
+</div>
+<article class="text-dark bg-gradient" >
+  <h6 class= "text-dark">{{p.reseña}}</h6> 
+</article>
+</div>
+  <style>
+    article:hover {
+      background-color: rgb(240, 242, 242);
+      b
+    }
+    h4 {
+text-align: left;
+    }
+    a {
+color: #02136f;
+text-decoration: none;
+    }
+
+    a:hover {
+  color: rgb(177, 22, 22);
+
+   } 
+
+    h6 {
+
+      text-align: justify;
+      
+
+    }
+  </style>
+{% endfor %}
+{% endblock %}

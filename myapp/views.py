@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from .models import Project, noticias     
+from .models import Project, noticias,Article, RichText, Download,post
 from django.shortcuts import get_object_or_404, render
 from django.shortcuts import render
 from django.shortcuts import redirect
@@ -10,9 +10,12 @@ import matplotlib.pyplot as plt
 from django.conf import settings
 import os
 from .palabras import lista_palabras
-from .forms import PalabraForm
 from .guardarpalabras import GuardarPalabras
 from palabra import palabralista
+from django.utils.html import format_html, mark_safe
+from content_editor.contents import contents_for_item
+from .forms import quillpost
+
 # Create your views here.
 API_KEY = "AIzaSyBg4WEYkkCog85Q8ES0x2AWojKNcEfe5s0"
 def inicio(request):
@@ -134,4 +137,57 @@ def generate_wordcloud(request):
 #Web Personal
 def personal(require):
     return render(require, 'personal.html' )
+#Web Personal
+def post_view(request):
+    # Obtener todos los objetos 'post'
+    posts = post.objects.all()
+        # Pasar los campos a la plantilla 'blog_index.html'
+    return render(request, 'blog_index.html', {
+        'post': posts
+    })
 
+#articulo
+def render_items(items):
+    for item in items:
+        if isinstance(item, RichText):
+            yield mark_safe(item.text)
+        elif isinstance(item, Download):
+            yield format_html(
+                '<a href="{}">{}</a>',
+                item.file.url,
+                item.file.name,
+            )
+
+#articulo
+def article_detail(request, id):
+    article2=Article.objects.get(id=id).title
+    article = get_object_or_404(Article, id=id)
+    contents = contents_for_item(article, [RichText, Download])
+    return render(request, "article_detail.html", {
+        "article": article,"article2": article2,
+        "content": {
+            region.key: mark_safe("".join(render_items(contents[region.key])))
+            for region in article.regions
+        },
+    })
+
+
+def crear_post(request): 
+    if request.method == 'POST':
+        form = quillpost(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/blog')  # Redirige a la página deseada después de guardar el formulario
+    else:
+        form = quillpost()
+    
+    return render(request, 'form_view.html', {'form': form})
+
+def blogs(request,id):
+    usuario=post.objects.get(id=id).usuario
+    fecha=post.objects.get(id=id).fecha
+    titulo=post.objects.get(id=id).titulo
+    contenido=post.objects.get(id=id).contenido
+    bibliografia=post.objects.get(id=id).bibliografia
+
+    return render(request, 'blogs.html', {'usuario':usuario,'fecha':fecha,'titulo':titulo,'contenido':contenido,'bibliografia':bibliografia,} )
