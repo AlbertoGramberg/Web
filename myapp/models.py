@@ -1,7 +1,6 @@
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.db import models
-from content_editor.models import Region, create_plugin_base
 from django_quill.fields import QuillField
 
 
